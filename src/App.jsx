@@ -11,13 +11,7 @@ import Experience from './components/Experience';
 import Contact    from './components/Contact';
 import Footer     from './components/Footer';
 
-/**
- * Responsive drag-hit area over the 3D car.
- * Desktop: centred vertically (50%).
- * Mobile (≤900px): the hero has 3 rows — text / car / stats.
- *   The car row starts roughly after the text block (~40% down) so we
- *   shift the hit zone down to ~52% to sit inside that window.
- */
+
 function DragArea({ dragAreaRef }) {
   const [style, setStyle] = useState({});
 
