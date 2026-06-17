@@ -1,0 +1,247 @@
+/* ============================================================
+   LUXE MOTORS — global stylesheet
+   Tokens · Reset · Shared utilities · Responsive overrides
+   ============================================================ */
+
+/* ── DESIGN TOKENS ─────────────────────────────────────────── */
+:root {
+  --bg: #000000;
+  --bg-alt: #0d0d0d;
+  --gold: #b8892e;
+  --gold-light: #d4a84b;
+  --text: #f0ede8;
+  --text-muted: rgba(240, 237, 232, 0.6);
+  --text-faint: rgba(240, 237, 232, 0.38);
+  --border: rgba(255, 255, 255, 0.09);
+  --glass: rgba(255, 255, 255, 0.07);
+  --glass-hover: rgba(255, 255, 255, 0.12);
+
+  --max-w: 1280px;
+  --pad-x: clamp(20px, 4vw, 60px);
+  --section-py: clamp(60px, 8vw, 120px);
+
+  --card-img-h: 120px;
+  --card-radius: 12px;
+  --card-max-w: 280px;
+
+  --font-head: 'Orbitron', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --fast: 0.22s ease;
+  --med: 0.5s var(--ease);
+}
+
+/* ── RESET ──────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+body.loading {
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: none;
+  font-family: inherit;
+}
+
+/* ── SHARED BUTTONS ─────────────────────────────────────────── */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 26px;
+  border-radius: 100px;
+  font-size: .85rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  color: var(--bg);
+  transition: all var(--fast);
+  white-space: nowrap;
+  box-shadow: 0 4px 20px rgba(200, 164, 78, .3);
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(200, 164, 78, .4);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 26px;
+  border-radius: 100px;
+  font-size: .85rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(10px);
+  transition: all var(--fast);
+  white-space: nowrap;
+}
+
+.btn-ghost:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+/* ── 3D CANVAS ──────────────────────────────────────────────── */
+#carCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  pointer-events: none;
+}
+
+/* ── SHARED SECTION HELPERS ─────────────────────────────────── */
+.section {
+  padding: clamp(48px, 7vw, 80px) clamp(16px, 4vw, 80px);
+  position: relative;
+  z-index: 3;
+  background: var(--bg);
+}
+
+.section-alt {
+  background: var(--bg-alt);
+}
+
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.tag {
+  font-size: .68rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.7rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.15;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.desc {
+  font-size: clamp(.82rem, 1.1vw, .96rem);
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 480px;
+}
+
+/* ── SPLIT LAYOUT ───────────────────────────────────────────── */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 0;
+  min-height: 520px;
+}
+
+.split-flip {
+  direction: rtl;
+}
+
+.split-flip > * {
+  direction: ltr;
+}
+
+.split-content {
+  padding: 0 48px 0 0;
+}
+
+.split-flip .split-content {
+  padding: 0 0 0 48px;
+}
+
+.split-car {
+  min-height: 520px;
+  pointer-events: none;
+}
+
+/* ── REVEAL ANIMATIONS ──────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+  transition-delay: var(--d, 0s);
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .split,
+  .split-flip {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .split-flip {
+    direction: ltr;
+  }
+
+  .split-content {
+    padding: 0 !important;
+  }
+
+  .split-car {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  h2 {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  .desc {
+    font-size: .85rem;
+  }
+}
