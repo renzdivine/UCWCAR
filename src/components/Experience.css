@@ -1,69 +1,133 @@
-/* ── TIMELINE (Experience section) ─────────────────────────── */
-.timeline {
-  display: flex;
-  flex-direction: column;
+.exp-header {
+  margin-bottom: 56px;
+}
+
+.exp-track {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 0;
-  margin-top: 24px;
-  padding-left: 40px;
   position: relative;
 }
 
-.timeline::before {
-  content: '';
+.exp-line {
   position: absolute;
-  left: 8px;
-  top: 0;
-  bottom: 0;
-  width: 1px;
+  top: 22px;
+  left: calc(12.5%);
+  right: calc(12.5%);
+  height: 1px;
   background: linear-gradient(
-    to bottom,
-    rgba(184, 137, 46, .4),
-    rgba(184, 137, 46, .1),
+    90deg,
+    transparent,
+    rgba(184, 137, 46, 0.5) 20%,
+    rgba(184, 137, 46, 0.5) 80%,
     transparent
   );
+  z-index: 0;
 }
 
-.t-item {
+.exp-step {
   display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding-bottom: 28px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 16px;
   position: relative;
+  z-index: 1;
 }
 
-.t-item:last-child {
-  padding-bottom: 0;
-}
-
-.t-dot {
-  position: absolute;
-  left: -36px;
-  top: 4px;
-  width: 10px;
-  height: 10px;
+.exp-node {
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 0 4px rgba(184, 137, 46, .15);
+  border: 1px solid rgba(184, 137, 46, 0.5);
+  background: var(--bg-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
   flex-shrink: 0;
+  transition: background var(--med), border-color var(--med), box-shadow var(--med);
 }
 
-.t-item h4 {
+.exp-step:hover .exp-node {
+  background: rgba(184, 137, 46, 0.12);
+  border-color: var(--gold);
+  box-shadow: 0 0 18px rgba(184, 137, 46, 0.2);
+}
+
+.exp-node span {
   font-family: var(--font-head);
-  font-size: .95rem;
+  font-size: .65rem;
   font-weight: 700;
-  margin-bottom: 4px;
+  color: var(--gold);
+  letter-spacing: .08em;
+}
+
+.exp-card {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 18px;
+  width: 100%;
+  transition: border-color var(--med), background var(--med), transform var(--med);
+}
+
+.exp-step:hover .exp-card {
+  border-color: rgba(184, 137, 46, 0.25);
+  background: rgba(184, 137, 46, 0.05);
+  transform: translateY(-4px);
+}
+
+.exp-card h4 {
+  font-family: var(--font-head);
+  font-size: .88rem;
+  font-weight: 700;
   color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.3;
 }
 
-.t-item p {
-  font-size: .8rem;
+.exp-card p {
+  font-size: .78rem;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
-/* ── RESPONSIVE ─────────────────────────────────────────────── */
-@media (max-width: 640px) {
-  .timeline {
-    padding-left: 28px;
+@media (max-width: 860px) {
+  .exp-track {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 0;
+  }
+
+  .exp-line {
+    display: none;
+  }
+
+  .exp-step {
+    padding: 0 12px;
+  }
+}
+
+@media (max-width: 500px) {
+  .exp-track {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .exp-step {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    gap: 16px;
+    padding: 0;
+  }
+
+  .exp-node {
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .exp-card {
+    padding: 14px 16px;
   }
 }

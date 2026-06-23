@@ -12,27 +12,34 @@ const NAV_ITEMS = [
 
 function smoothScrollTo(href) {
   const el = document.querySelector(href);
-  if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+  if (el) {
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+  }
 }
 
 export default function Navbar() {
-  const [scrolled, setScrolled]     = useState(false);
-  const [menuOpen, setMenuOpen]     = useState(false);
-  const [activeSection, setActive]  = useState('hero');
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
-    const io = new IntersectionObserver(
-      entries => entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); }),
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
       { rootMargin: '-30% 0px -70% 0px' }
     );
-    document.querySelectorAll('section[id]').forEach(s => io.observe(s));
-    return () => io.disconnect();
+
+    document.querySelectorAll('section[id]').forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
   }, []);
 
   const handleLink = (href) => {
@@ -43,11 +50,7 @@ export default function Navbar() {
   return (
     <nav id="navbar" className={scrolled ? 'scrolled' : ''}>
       <div className="nav-inner">
-        <a
-          href="#hero"
-          className="nav-logo"
-          onClick={e => { e.preventDefault(); handleLink('#hero'); }}
-        >
+        <a href="#hero" className="nav-logo" onClick={(e) => { e.preventDefault(); handleLink('#hero'); }}>
           UCW<span className="logo-dot" />
         </a>
 
@@ -57,8 +60,7 @@ export default function Navbar() {
               <a
                 href={href}
                 className={`nav-link${activeSection === section ? ' active' : ''}`}
-                data-section={section}
-                onClick={e => { e.preventDefault(); handleLink(href); setActive(section); }}
+                onClick={(e) => { e.preventDefault(); handleLink(href); setActiveSection(section); }}
               >
                 {label}
               </a>
@@ -67,17 +69,13 @@ export default function Navbar() {
         </ul>
 
         <div className="nav-actions">
-          <a
-            href="#contact"
-            className="btn-gold"
-            onClick={e => { e.preventDefault(); handleLink('#contact'); }}
-          >
+          <a href="#contact" className="btn-gold" onClick={(e) => { e.preventDefault(); handleLink('#contact'); }}>
             Book Test Drive
           </a>
           <button
             className={`hamburger${menuOpen ? ' active' : ''}`}
             aria-label="Menu"
-            onClick={() => setMenuOpen(v => !v)}
+            onClick={() => setMenuOpen((v) => !v)}
           >
             <span /><span /><span />
           </button>

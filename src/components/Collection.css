@@ -1,4 +1,3 @@
-/* ── COLLECTION CARDS ───────────────────────────────────────── */
 .card-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -29,7 +28,7 @@
 .car-card-img img {
   width: 100%;
   height: 100%;
-  object-fit:cover;
+  object-fit: cover;
   object-position: center;
   display: block;
 }
@@ -59,7 +58,6 @@
   font-weight: 600;
 }
 
-/* ── FEATURES (collection section) ─────────────────────────── */
 .feature-list {
   display: flex;
   flex-direction: column;
@@ -105,7 +103,6 @@
   line-height: 1.65;
 }
 
-/* ── RESPONSIVE ─────────────────────────────────────────────── */
 @media (max-width: 640px) {
   .card-list {
     grid-template-columns: 1fr 1fr;
@@ -124,5 +121,71 @@
 @media (max-width: 420px) {
   .card-list {
     grid-template-columns: 1fr;
+  }
+}
+
+.collection-car-wrap {
+  position: relative;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(40px);
+  z-index: 6;
+}
+
+.collection-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+
+/* ── Mobile: show the 3-D car below the card list ── */
+@media (max-width: 900px) {
+  /* Re-show the car column that index.css hides for all .split-car */
+  #collection .split-car {
+    display: block !important;
+    width: 100%;
+    height: 280px;
+    position: relative;
+    transform: none;
+    margin-top: 16px;
+  }
+
+  /* Canvas must fill the wrapper exactly */
+  #collection .collection-car-wrap {
+    position: absolute;
+    inset: 0;
+    min-height: unset;
+    transform: none;
+    width: 100%;
+    height: 100%;
+  }
+
+  #collection .collection-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  #collection .split-car {
+    height: 230px;
+  }
+}
+
+@media (max-width: 480px) {
+  #collection .split-car {
+    height: 200px;
+  }
+}
+
+@media (max-width: 360px) {
+  #collection .split-car {
+    height: 170px;
   }
 }

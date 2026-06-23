@@ -1,6 +1,8 @@
 import phantomImg from '../assets/phantom.png';
 import spectreImg from '../assets/spectre.png';
 import venomImg from '../assets/venom.png';
+import gtrImg from '../assets/gtr.png';
+import { useCollectionScene } from '../hooks/useCollectionScene';
 import './Collection.css';
 
 const CARDS = [
@@ -25,9 +27,18 @@ const CARDS = [
     bg: venomImg,
     delay: '0.2s',
   },
+  {
+    name: 'Nissan GTR',
+    sub: 'Aero Edition · Supercharged V10',
+    price: 'From $680,000',
+    bg: gtrImg,
+    delay: '0.3s',
+  },
 ];
 
 export default function Collection() {
+  const canvasRef = useCollectionScene();
+
   return (
     <section id="collection" className="section">
       <div className="container">
@@ -53,7 +64,9 @@ export default function Collection() {
             </div>
           </div>
 
-          <div className="split-car" />
+          <div className="split-car collection-car-wrap">
+            <canvas ref={canvasRef} className="collection-canvas" />
+          </div>
         </div>
       </div>
     </section>

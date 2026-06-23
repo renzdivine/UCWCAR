@@ -30,7 +30,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="container footer-bottom">
-        <p>© 2026 LUXE Motors. All rights reserved.</p>
+        <p>© 2026 UCW Motors. All rights reserved.</p>
         <div>
           <a href="#">Privacy Policy</a>
           <a href="#">Terms of Service</a>
